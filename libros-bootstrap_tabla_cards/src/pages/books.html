@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  <title>Books</title>
+</head>
+
+<body class="bg-warning-subtle">
+  <header>
+    <nav class="navbar navbar-expand-lg bg-warning">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">Navbar</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="../../index.html">Cards</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link active" href="#">Books</a>
+            </li>
+
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <div class="container py-4">
+    <div class="p-5 mb-4 bg-body-tertiary border-3">
+      <table class="table table-hover table-bordered">
+        <thead>
+          <tr>
+            <th> ID</th>
+            <th>TITULO</th>
+            <th>GENERO</th>
+            <th>AUTOR</th>
+            <th>PRECIO</th>
+            <th>NUMERO_PAGINAS</th>
+            <th>ESTADO</th>
+            <th>ELIMINAR</th>
+            <th>EDITAR</th>
+            <th>DETALLES</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody">
+
+        </tbody>
+      </table>
+      <div class="text-center">
+        <!-----------------------------------MODAL.  BOTON CREAR LIBRO---------------------------------->
+        <button type="button" class="btn btn-success " data-bs-toggle="modal" data-bs-target="#createModal" onclick="CamposEnBlanco()">
+          CREAR LIBRO
+        </button>
+    
+        <!--MODAL. IMPUTS, SELECT-->
+        <div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="createModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="createModalLabel">INGRESAR NUEVO LIBRO</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+    
+                <div class="input-group mb-3">
+                  <span class="input-group-text" id="inputGroup-sizing-default">TITULO</span>
+                  <input type="text" class="form-control" aria-label="Sizing example input" name="name" id="name"
+                    aria-describedby="inputGroup-sizing-default">
+                </div>
+    
+                <div class="input-group mb-3">
+                  <span class="input-group-text" id="inputGroup-sizing-default">AUTOR</span>
+                  <input type="text" class="form-control" aria-label="Sizing example input" name="author" id="author"
+                    aria-describedby="inputGroup-sizing-default">
+                </div>
+
+                <div class="input-group mb-3">
+                  <span class="input-group-text" id="inputGroup-sizing-default">PRECIO</span>
+                  <input type="text" class="form-control" aria-label="Sizing example input" name="precio" id="precio"
+                    aria-describedby="inputGroup-sizing-default">
+                </div>
+
+                <div class="input-group mb-3">
+                  <span class="input-group-text" id="inputGroup-sizing-default">NUMERO_PAGINAS</span>
+                  <input type="text" class="form-control" aria-label="Sizing example input" name="numeroPaginas" id="numeroPaginas"
+                    aria-describedby="inputGroup-sizing-default">
+                </div>
+
+              
+                <div class="form-check p-3">
+                  <input class="form-check-input" type="checkbox" value="" id="estadoCrear">
+                  <label class="form-check-label" for="flexCheckIndeterminate">ESTADO</label>
+                </div>
+              
+    
+                <select class="form-select mb-3" aria-label="Default select example" name="genre" id="genre">
+                  <option selected>SELECCIONE OPCION</option>
+                  <option value="DRAMA">DRAMA</option>
+                  <option value="NOVELA">NOVELA</option>
+                  <option value="TERROR">TERROR</option>
+                  <option value="FICCION">FICCION</option>
+                  <option value="FANTASIA">FANTASIA</option>
+                </select>
+
+                <div class="input-group mb-3">
+                  <span class="input-group-text" id="inputGroup-sizing-default">URL IMAGEN</span>
+                  <input type="text" class="form-control" aria-label="Sizing example input" name="url" id="url"
+                    aria-describedby="inputGroup-sizing-default">
+                </div>
+              </div>
+              <!--MODAL.  BOTON GUARDAR LIBRO-->
+              <div class="modal-footer">
+                <button type="button " id="saveBookButton" class="btn btn-primary ">SAVE BOOK</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+    </div>
+  </div>
+
+<!------------------------------------- Modal, ELIMINAR LIBRO----------------------------------------------->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="deleteModalLabel">ELIMINAR</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>desea eliminar libro con id: <span id="eliminarLibroSpanId"></span></p>
+        <p>y nombre:  <span id="eliminarLibroSpanTitulo"></span> ?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">NO</button>
+        <button type="button" class="btn btn-primary" onclick="eliminarLibro()" id="si">SI</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!----------------------------------MODAL, EDITAR LIBRO---------------------------------------------------->
+<!--MODAL. IMPUTS, SELECT-->
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="editModalLabel">EDITAR LIBRO</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="inputGroup-sizing-default">TITULO</span>
+          <input type="text" class="form-control" aria-label="Sizing example input" name="titulo2" id="titulo2"
+            aria-describedby="inputGroup-sizing-default">
+        </div>
+
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="inputGroup-sizing-default">AUTOR</span>
+          <input type="text" class="form-control" aria-label="Sizing example input" name="author2" id="author2"
+            aria-describedby="inputGroup-sizing-default">
+        </div>
+
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="inputGroup-sizing-default">PRECIO</span>
+          <input type="text" class="form-control" aria-label="Sizing example input" name="precio2" id="precio2"
+            aria-describedby="inputGroup-sizing-default">
+        </div>
+
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="inputGroup-sizing-default">NUMERO_PAGINAS</span>
+          <input type="text" class="form-control" aria-label="Sizing example input" name="numeroPaginas2" id="numeroPaginas2"
+            aria-describedby="inputGroup-sizing-default">
+        </div>
+
+        <div class="form-check p-3">
+          <input class="form-check-input" type="checkbox" value="" id="estadoEditar">
+          <label class="form-check-label" for="flexCheckIndeterminate">ESTADO</label>
+        </div>
+
+        <select class="form-select mb-3" aria-label="Default select example" name="genre2" id="genre2">
+          <option value="DRAMA">DRAMA</option>
+          <option value="NOVELA">NOVELA</option>
+          <option value="TERROR">TERROR</option>
+          <option value="FICCION">FICCION</option>
+          <option value="FANTASIA">FANTASIA</option>
+        </select>
+
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="inputGroup-sizing-default">URL IMAGEN</span>
+          <input type="text" class="form-control" aria-label="Sizing example input" name="url2" id="url2"
+            aria-describedby="inputGroup-sizing-default">
+        </div>
+      
+      </div>
+
+      <!--MODAL.  BOTON EDITAR LIBRO-->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button " id="editBookButton" class="btn btn-primary " onclick="actualizarLibro()">EDITAR</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+
+<!--------------------------------------------modal, detalles--------------------------------------->
+
+<!-- Modal -->
+<div class="modal fade" id="detallesModal" tabindex="-1" aria-labelledby="detallesModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="detallesModalLabel">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+          <!---------------------------------------CARD, DETALLES----------------------------->
+          <div class="card mb-3 bg-warning-subtle" style="max-width: 540px; ">
+            <div class="row g-0">
+              <div class="col-md-4">
+                <img src="https://img.freepik.com/foto-gratis/fondo-textura-grunge-oscuro-aranazos-manchas_1048-18915.jpg?w=740&t=st=1699409213~exp=1699409813~hmac=242efa6f6e419dde5f3d59fb72b3cc98061a59da72609bdbcbdbc304b15a3e78" class="img-fluid rounded-start" alt="image" id="detalleImagen">
+              </div>
+              <div class="col-md-8">
+                <div class="card-body">
+                  <p>ID: <span id="detallesId"></span></p>
+                  <p>TITULO: <span id="detallesTitle"></span></p>
+                  <p>AUTOR: <span id="detallesAutor"></span></p>
+                  <p>GENERO: <span id="detallesGenre"></span></p>
+                  <p>PRECIO: <span id="detallesPrecio"></span></p>
+                  <p>NUMERO_PAGINAS: <span id="detallesNumeroPaginas"></span></p>
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+          
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary">CERRAR</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  <script src=" 	https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../js/books.js"></script>
+</body>
+
+</html>
